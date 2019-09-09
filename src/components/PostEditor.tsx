@@ -3,7 +3,7 @@ import { inject, InjectorContext } from "react-ioc"
 import { observer } from "mobx-react";
 import { action } from "mobx";
 import TextAreaAutosize from "react-textarea-autosize";
-import { PostService } from "../services";
+import { PostService } from "services";
 
 @observer
 export class PostEditor extends React.Component {

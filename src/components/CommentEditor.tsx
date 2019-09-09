@@ -3,8 +3,8 @@ import { inject, InjectorContext } from "react-ioc"
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import TextAreaAutosize from "react-textarea-autosize";
-import { CommentService } from "../services";
-import { Post, Comment } from "../models";
+import { CommentService } from "services";
+import { Post, Comment } from "models";
 
 @observer
 export class CommentEditor extends React.Component<{

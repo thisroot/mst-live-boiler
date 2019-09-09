@@ -1,7 +1,7 @@
 import { inject, InjectorContext } from "react-ioc"
 import { computed } from "mobx";
 import { DataContext } from "./DataContext";
-import { User } from "../models";
+import { User } from "models";
 
 export class AuthService {
   public dataContext: DataContext = inject(this, DataContext)

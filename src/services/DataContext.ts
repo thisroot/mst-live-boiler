@@ -1,5 +1,5 @@
 import { Instance, unprotect } from "mobx-state-tree";
-import Models from "../models";
+import Models from "models";
 import { connectReduxDevtools } from "mst-middlewares"
 import { RouterModel, syncHistoryWithStore } from 'mst-react-router';
 

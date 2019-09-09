@@ -3,7 +3,7 @@ import { normalize } from "normalizr";
 import { getSnapshot, applySnapshot } from "mobx-state-tree";
 import { PostSchema } from "schemas";
 import { DataContext } from "./DataContext";
-import postsJson from "../posts.json";
+import postsJson from "posts.json";
 
 export class StorageService {
   public dataContext: DataContext = inject(this, DataContext);
