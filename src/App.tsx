@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { TestContainer } from 'containers'
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
+          <TestContainer />
           Learn React
         </a>
       </header>
