@@ -1,20 +1,27 @@
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { normalize } from "normalizr";
 import { getSnapshot, applySnapshot } from "mobx-state-tree";
-import { PostSchema } from "../schemas";
+import { PostSchema } from "schemas";
 import { DataContext } from "./DataContext";
 import postsJson from "../posts.json";
+import { isNull } from "util"
 
 export class StorageService {
-  @inject dataContext: DataContext;
+  public dataContext: DataContext = inject(this, DataContext);
+  static contextType = InjectorContext;
 
   init() {
     console.log('Init Storage')
     try {
       const snapshot = JSON.parse(localStorage.getItem("data"));
-      applySnapshot(this.dataContext, { ...snapshot, router: this.dataContext.router });
-      JSON.stringify(this.dataContext);
-    } catch {
+      if(isNull(snapshot)) {
+        console.log('null')
+        this.reset()
+      } else {
+        applySnapshot(this.dataContext, { ...snapshot, router: this.dataContext.router });
+        JSON.stringify(this.dataContext);
+      }
+    } catch(e) {
       this.reset();
     }
   }

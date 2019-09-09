@@ -1,4 +1,4 @@
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { action, observable } from "mobx";
 import { Post } from "../models";
 import { DataContext } from "./DataContext";
@@ -10,8 +10,9 @@ class CreatePostModel {
 }
 
 export class PostService {
-  @inject dataContext: DataContext;
-  @inject authService: AuthService;
+  public dataContext: DataContext = inject(this, DataContext);
+  public authService: AuthService = inject(this, AuthService);
+  static contextType = InjectorContext;
 
   @observable currentPost: Post = null;
   @observable newPost: CreatePostModel = null;

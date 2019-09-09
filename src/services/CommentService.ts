@@ -1,12 +1,13 @@
 import { action } from "mobx";
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { Post, Comment } from "../models";
 import { DataContext } from "./DataContext";
 import { AuthService } from "./AuthService";
 
 export class CommentService {
-  @inject dataContext: DataContext;
-  @inject authService: AuthService;
+  public dataContext: DataContext = inject(this, DataContext);
+  public authService: AuthService = inject(this, AuthService)
+  static contextType = InjectorContext;
 
   nextId = 1;
 

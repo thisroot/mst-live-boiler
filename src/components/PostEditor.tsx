@@ -1,5 +1,5 @@
 import React from "react";
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { observer } from "mobx-react";
 import { action } from "mobx";
 import TextAreaAutosize from "react-textarea-autosize";
@@ -7,12 +7,13 @@ import { PostService } from "../services";
 
 @observer
 export class PostEditor extends React.Component {
-  @inject postService: PostService;
+  public postService: PostService = inject(this, PostService)
+    static contextType = InjectorContext;
 
-    constructor(props, context) {
-        super(props, context)
-        this.postService = context.postService
-    }
+    // constructor(props, context) {
+    //     super(props, context)
+    //     this.postService = context.postService
+    // }
 
   @action
   handleChange(e, name: string) {

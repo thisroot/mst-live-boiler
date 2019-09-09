@@ -1,9 +1,10 @@
 import { DataContext, history } from './DataContext'
 import { action } from "mobx"
-import { inject } from "react-ioc"
+import { inject, InjectorContext } from "react-ioc"
 
 export class RouterService {
-    @inject dataContext: DataContext;
+    public dataContext: DataContext = inject(this, DataContext);
+    static contextType = InjectorContext;
 
     public history = history
 

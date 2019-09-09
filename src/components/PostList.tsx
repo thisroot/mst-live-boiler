@@ -1,19 +1,20 @@
 import React from "react";
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { observer } from "mobx-react";
 import { DataContext, PostService, StorageService } from "../services";
 
 @observer
 export class PostList extends React.Component {
   dataContext = inject(this, DataContext);
-  @inject postService: PostService;
-  @inject storageService: StorageService;
+    public postService: PostService = inject(this, PostService)
+  public storageService: StorageService = inject(this, StorageService);
+    static contextType = InjectorContext;
 
-    constructor(props, context) {
-        super(props, context)
-        this.postService = context.postService
-        this.storageService = context.storageService
-    }
+    // constructor(props, context) {
+    //     super(props, context)
+    //     this.postService = context.postService
+    //     this.storageService = context.storageService
+    // }
 
   render() {
     const { currentPost } = this.postService;

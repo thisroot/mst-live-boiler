@@ -1,5 +1,5 @@
 import React from "react";
-import { inject } from "react-ioc";
+import { inject, InjectorContext } from "react-ioc"
 import { observer } from "mobx-react";
 import { observable, action } from "mobx";
 import ReactMarkdown from "react-markdown";
@@ -10,12 +10,13 @@ import { CommentEditor } from "./CommentEditor";
 
 @observer
 export class PostView extends React.Component {
-  @inject postService: PostService;
+    public postService: PostService = inject(this, PostService)
+    static contextType = InjectorContext;
 
-    constructor(props, context) {
-        super(props, context)
-        this.postService = context.postService
-    }
+    // constructor(props, context) {
+    //     super(props, context)
+    //     this.postService = context.postService
+    // }
 
   @observable isCommentEditorOpen = false;
 
