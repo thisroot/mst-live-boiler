@@ -4,7 +4,6 @@ import { getSnapshot, applySnapshot } from "mobx-state-tree";
 import { PostSchema } from "schemas";
 import { DataContext } from "./DataContext";
 import postsJson from "../posts.json";
-import { isNull } from "util"
 
 export class StorageService {
   public dataContext: DataContext = inject(this, DataContext);
@@ -14,13 +13,8 @@ export class StorageService {
     console.log('Init Storage')
     try {
       const snapshot = JSON.parse(localStorage.getItem("data"));
-      if(isNull(snapshot)) {
-        console.log('null')
-        this.reset()
-      } else {
         applySnapshot(this.dataContext, { ...snapshot, router: this.dataContext.router });
         JSON.stringify(this.dataContext);
-      }
     } catch(e) {
       this.reset();
     }
