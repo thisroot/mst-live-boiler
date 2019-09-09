@@ -7,7 +7,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noImplicitAny": false,
