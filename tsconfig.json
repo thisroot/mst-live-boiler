@@ -7,37 +7,37 @@
       "dom.iterable",
       "esnext"
     ],
-    "strictNullChecks": false,
-    "noImplicitThis": true,
+    "strictNullChecks": false, // проверка на нулевые значения для свойств
+    "noImplicitAny": false, // проверка на указание типа аргументов
+    "noImplicitThis": true, // проверка на использование this
     "noUnusedLocals": true,
-    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "suppressExcessPropertyErrors": true,
+    "isolatedModules": false,
+    "strict": true,
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
     "rootDir": "src",
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "preserve",
-    "skipLibCheck": true,
-    "isolatedModules": false,
     "typeRoots": [
       "./src/types",
       "./node_modules/@types"
     ],
     "outDir": "build/dist",
     "sourceMap": true,
-    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "src/**/*"
