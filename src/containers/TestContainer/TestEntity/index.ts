@@ -1,0 +1,1 @@
+export { TestEntity } from './TestEntity'

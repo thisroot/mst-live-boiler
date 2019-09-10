@@ -1,24 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { RouterContainer } from 'containers/Router';
 import * as serviceWorker from './serviceWorker';
-// import { toFactory } from "react-ioc"
-// import { AuthService, CommentService, DataContext, PostService, RouterService, StorageService } from "services"
 
-
-// App.register(
-//     AuthService,
-//     PostService,
-//     CommentService,
-//     StorageService,
-//     RouterService, [
-//     DataContext,
-//     toFactory(DataContext.create)
-// ])
 
 const container = document.getElementById("root")
-ReactDOM.render(<App />, container);
+ReactDOM.render(<RouterContainer />, container);
 
 // позволяет выполнить функцию жизненного цикла componentWillUnmount при закрытии приложения.
 // в нашем случае она скидывает дамп редак стора в локальное хранилище

@@ -9,6 +9,6 @@ export class AuthService {
 
   @computed
   get currentUser(): User {
-    return this.dataContext.users.get("23");
+    return this.dataContext.users.get("23") || null
   }
 }
