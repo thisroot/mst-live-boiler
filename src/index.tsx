@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { toFactory } from "react-ioc"
-import { AuthService, CommentService, DataContext, PostService, RouterService, StorageService } from "services"
+// import { toFactory } from "react-ioc"
+// import { AuthService, CommentService, DataContext, PostService, RouterService, StorageService } from "services"
 
 
-App.register(
-    AuthService,
-    PostService,
-    CommentService,
-    StorageService,
-    RouterService, [
-    DataContext,
-    toFactory(DataContext.create)
-])
+// App.register(
+//     AuthService,
+//     PostService,
+//     CommentService,
+//     StorageService,
+//     RouterService, [
+//     DataContext,
+//     toFactory(DataContext.create)
+// ])
 
 const container = document.getElementById("root")
 ReactDOM.render(<App />, container);

@@ -1,30 +1,28 @@
 import React, { Fragment } from "react"
 import { Router } from 'react-router'
 import { Route } from "react-router-dom"
-import { provider, inject, InjectorContext } from "react-ioc"
+import { provider, inject, toFactory } from "react-ioc"
 import {
-    StorageService,
-    RouterService,
-    history
-} from "./services"
+    AuthService, CommentService,
+    DataContext, PostService,
+    RouterService, StorageService, history
+} from "services"
 
-import { PostList } from "./components/PostList"
-import { PostLayout } from "./components/PostLayout"
+import { PostList } from "components/PostList"
+import { PostLayout } from "components/PostLayout"
 
+
+@provider(
+    AuthService, PostService, CommentService,
+    StorageService, RouterService,[
+    DataContext, toFactory(DataContext.create)
+])
 class App extends React.Component {
 
-    public storageService: StorageService = inject(this, StorageService)
-    public router: RouterService = inject(this, RouterService)
-
-    static contextType = InjectorContext;
-
-
-    // constructor(props, context) {
-    //     super(props, context)
-    //     console.log(props, context)
-    //     this.storageService = context.storageService
-    //     this.router = context.router
-    // }
+    @inject
+    public storageService: StorageService
+    @inject
+    public router: RouterService
 
     componentDidMount() {
         this.storageService.init()

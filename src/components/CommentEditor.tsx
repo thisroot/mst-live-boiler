@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, InjectorContext } from "react-ioc"
+import { inject } from "react-ioc"
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import TextAreaAutosize from "react-textarea-autosize";
@@ -13,18 +13,12 @@ export class CommentEditor extends React.Component<{
   onClose(): void;
 }> {
 
-  // constructor(props, context) {
-  //   super(props, context)
-  //   this.commentService = context.commentService
-  // }
-
-  public commentService: CommentService = inject(this, CommentService)
-  static contextType = InjectorContext;
+  @inject
+  commentService: CommentService
 
   @observable text = "";
 
-  @action
-  handleChange(e) {
+  @action handleChange(e) {
     this.text = e.target.value;
   }
 

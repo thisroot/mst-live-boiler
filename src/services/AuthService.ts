@@ -1,11 +1,11 @@
-import { inject, InjectorContext } from "react-ioc"
+import { inject } from "react-ioc"
 import { computed } from "mobx";
 import { DataContext } from "./DataContext";
 import { User } from "models";
 
 export class AuthService {
-  public dataContext: DataContext = inject(this, DataContext)
-  static contextType = InjectorContext;
+  @inject
+  public dataContext: DataContext
 
   @computed
   get currentUser(): User {

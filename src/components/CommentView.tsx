@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, InjectorContext } from "react-ioc"
+import { inject } from "react-ioc"
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import ReactMarkdown from "react-markdown";
@@ -15,8 +15,8 @@ export class CommentView extends React.Component<{ comment: Comment }> {
     //     this.commentService = context.commentService
     // }
 
-    public commentService: CommentService = inject(this, CommentService)
-    static contextType = InjectorContext;
+    @inject
+    commentService: CommentService
 
   @observable isCommentEditorOpen = false;
 

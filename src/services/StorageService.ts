@@ -1,4 +1,4 @@
-import { inject, InjectorContext } from "react-ioc"
+import { inject } from "react-ioc"
 import { normalize } from "normalizr";
 import { getSnapshot, applySnapshot } from "mobx-state-tree";
 import { PostSchema } from "schemas";
@@ -6,8 +6,8 @@ import { DataContext } from "./DataContext";
 import postsJson from "posts.json";
 
 export class StorageService {
-  public dataContext: DataContext = inject(this, DataContext);
-  static contextType = InjectorContext;
+  @inject
+  public dataContext: DataContext
 
   init() {
     console.log('Init Storage')
