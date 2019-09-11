@@ -1,8 +1,8 @@
 import { action } from "mobx";
 import { inject } from "react-ioc"
 import { Post, Comment } from "models";
-import { DataContext } from "./DataContext";
-import { AuthService } from "./AuthService";
+import { DataContext } from "services/DataContext";
+import { AuthService } from "services/AuthService";
 
 export class CommentService {
   @inject

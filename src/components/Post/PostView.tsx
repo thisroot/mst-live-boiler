@@ -5,8 +5,8 @@ import { observable, action } from "mobx"
 import ReactMarkdown from "react-markdown"
 import { PostService } from "services"
 import { Comment } from "models"
-import { CommentView } from "./CommentView"
-import { CommentEditor } from "./CommentEditor"
+import { CommentView } from "components/Comment/CommentView"
+import { CommentEditor } from "components/Comment/CommentEditor"
 
 @observer
 export class PostView extends React.Component {

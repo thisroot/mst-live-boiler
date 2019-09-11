@@ -5,15 +5,10 @@ import { observer } from "mobx-react";
 import ReactMarkdown from "react-markdown";
 import { CommentService } from "services";
 import { Comment } from "models";
-import { CommentEditor } from "./CommentEditor";
+import { CommentEditor } from "components/Comment/CommentEditor";
 
 @observer
 export class CommentView extends React.Component<{ comment: Comment }> {
-
-    // constructor(props, context) {
-    //     super(props, context)
-    //     this.commentService = context.commentService
-    // }
 
     @inject
     commentService: CommentService

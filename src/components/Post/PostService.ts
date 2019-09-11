@@ -1,8 +1,8 @@
 import { inject } from "react-ioc"
 import { action, observable } from "mobx";
 import { Post } from "models";
-import { DataContext } from "./DataContext";
-import { AuthService } from "./AuthService";
+import { DataContext } from "services/DataContext";
+import { AuthService } from "services/AuthService";
 
 class CreatePostModel {
   @observable title = "";

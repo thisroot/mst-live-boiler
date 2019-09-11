@@ -1,12 +1,22 @@
 import React, { Fragment } from "react"
 import { Helmet } from 'react-helmet'
 import { inject, provider, toFactory } from "react-ioc"
-import { AuthService, CommentService, DataContext, PostService, RouterService, StorageService } from "services"
+import {
+    AuthService,
+    CommentService,
+    DataContext,
+    PostService,
+    RouterService,
+    StorageService,
+    ApiService
+} from "services"
 
 import { APP_STATE, AppService } from './AppService'
 
 import styles from './styles.scss'
 import { observer } from "mobx-react"
+import { ROUTES } from 'constants/routes'
+import { Link } from 'react-router-dom'
 
 
 @observer
@@ -22,19 +32,22 @@ class AppContainer extends React.Component {
         await this.appService.init()
     }
 
-    appRender = (children?: JSX.Element) =>
-        <Fragment>
+    appRender = (children?: JSX.Element) => {
+        return (<Fragment>
             <header>Header</header>
             <main style={ { display: "flex", flexDirection: "column" } }>
                 <aside style={ { display: "flex" } }>
-                    <div className={ styles.link } onClick={ () => this.router.push('/') }>Index</div>
-                    <div className={ styles.link } onClick={ () => this.router.push('/test') }>Test</div>
+                    <Link className={ styles.link } to={ROUTES.ROOT.PATH}> native link </Link>
+                    <div className={ styles.link }
+                         onClick={ () => this.router.push(ROUTES.TEST_PAGE.PATH) }>programmatic link
+                    </div>
                 </aside>
                 <aside style={ { display: "flex" } }>
                     { children || this.props.children }
                 </aside>
             </main>
-        </Fragment>
+        </Fragment>)
+    }
 
     render() {
         let renderFn
@@ -74,7 +87,7 @@ const App = provider()(AppContainer)
 App.register(
     AuthService, PostService, CommentService,
     StorageService, RouterService,
-    AppService, [ DataContext, toFactory(DataContext.create)]
+    AppService, ApiService, [ DataContext, toFactory(DataContext.create) ]
 )
 
 export { App }
