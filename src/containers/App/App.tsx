@@ -9,8 +9,6 @@ import {
     ApiService
 } from "services"
 
-import { CommentService, PostService } from 'components'
-
 import { APP_STATE, AppService } from './AppService'
 
 import styles from './styles.scss'
@@ -85,7 +83,7 @@ class AppContainer extends React.Component {
 const App = provider()(AppContainer)
 
 App.register(
-    AuthService, PostService, CommentService,
+    AuthService,
     StorageService, RouterService,
     AppService, ApiService, [ DataContext, toFactory(DataContext.create) ]
 )
