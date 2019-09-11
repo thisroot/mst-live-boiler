@@ -2,8 +2,8 @@ import React from "react";
 import { inject } from "react-ioc"
 import { observer } from "mobx-react";
 import { PostService } from './PostService';
-import { PostEditor } from "components/Post/PostEditor";
-import { PostView } from "components/Post/PostView";
+import { PostEditor } from "./PostEditor";
+import { PostView } from "./PostView";
 
 @observer
 export class PostLayout extends React.Component {
