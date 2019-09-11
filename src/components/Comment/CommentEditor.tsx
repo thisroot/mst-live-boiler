@@ -4,7 +4,7 @@ import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import TextAreaAutosize from "react-textarea-autosize";
 import { CommentService } from './CommentService';
-import { Post, Comment } from "models";
+import { Post, Comment } from "models/mst";
 
 @observer
 export class CommentEditor extends React.Component<{

@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 import { observable, action } from "mobx"
 import ReactMarkdown from "react-markdown"
 import { PostService } from "./PostService"
-import { Comment } from "models"
+import { Comment } from "models/mst"
 import { CommentView } from "components/Comment/CommentView"
 import { CommentEditor } from "components/Comment/CommentEditor"
 

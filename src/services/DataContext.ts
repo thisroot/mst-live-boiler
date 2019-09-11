@@ -1,5 +1,5 @@
 import { Instance, unprotect } from "mobx-state-tree";
-import Models from "models";
+import { Store } from "models/mst";
 import { connectReduxDevtools } from "mst-middlewares"
 import { RouterModel, syncHistoryWithStore } from 'mst-react-router';
 
@@ -9,10 +9,10 @@ export const history = syncHistoryWithStore(createBrowserHistory(), routerModel)
 
 export class DataContext {
   static create() {
-    const models = Models.create({ router: routerModel });
+    const models = Store.create({ router: routerModel });
     connectReduxDevtools(require("remotedev"), models, { logArgsNearName: false})
     unprotect(models);
     return models;
   }
 }
-export interface DataContext extends Instance<typeof Models> {}
+export interface DataContext extends Instance<typeof Store> {}
