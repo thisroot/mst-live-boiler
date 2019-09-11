@@ -1,8 +1,8 @@
 import { types as t } from "mobx-state-tree";
 import { RouterModel } from 'mst-react-router';
 import { User } from "models/mst/User";
-import { Post } from "models/mst/Post";
-import { Comment } from "models/mst/Comment";
+import { Post } from "components/Post/Post";
+import { Comment } from "components/Comment/Comment";
 
 const Store =  t.model({
     users: t.map(User),

@@ -1,6 +1,6 @@
 import { types as t, Instance } from "mobx-state-tree";
 import { User } from "models/mst/User";
-import { Comment } from "models/mst/Comment";
+import { Comment } from "components/Comment/Comment";
 
 export const Post = t
   .model("Post", {

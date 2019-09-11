@@ -1,4 +1,4 @@
 export * from './Store'
-export * from './Comment'
-export * from './Post'
+export * from 'components/Comment/Comment'
+export * from 'components/Post/Post'
 export * from './User'
