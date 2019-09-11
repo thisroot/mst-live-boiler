@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RouterContainer } from 'containers/Router';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from 'utils/serviceWorker/serviceWorker';
 
 
 const container = document.getElementById("root")

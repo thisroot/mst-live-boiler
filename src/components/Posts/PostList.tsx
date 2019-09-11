@@ -1,7 +1,8 @@
 import React from "react"
 import { inject } from "react-ioc"
 import { observer } from "mobx-react"
-import { DataContext, PostService, StorageService } from "services"
+import { DataContext, StorageService } from "services"
+import { PostService } from "components/Post"
 
 @observer
 export class PostList extends React.Component {

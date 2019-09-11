@@ -3,7 +3,7 @@ import { inject } from "react-ioc"
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import TextAreaAutosize from "react-textarea-autosize";
-import { CommentService } from "services";
+import { CommentService } from './CommentService';
 import { Post, Comment } from "models";
 
 @observer

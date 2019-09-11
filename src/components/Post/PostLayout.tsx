@@ -1,7 +1,7 @@
 import React from "react";
 import { inject } from "react-ioc"
 import { observer } from "mobx-react";
-import { PostService } from "services";
+import { PostService } from './PostService';
 import { PostEditor } from "components/Post/PostEditor";
 import { PostView } from "components/Post/PostView";
 

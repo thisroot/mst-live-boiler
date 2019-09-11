@@ -1,10 +1,10 @@
 import { inject } from "react-ioc"
 import { normalize } from "normalizr";
 import { getSnapshot, applySnapshot } from "mobx-state-tree";
-import { PostSchema } from "schemas";
-import { DataContext } from "./DataContext";
+import { PostSchema } from "services/StorageService/schemas";
+import { DataContext } from "services/DataContext";
 import initDB from 'utils/indexedDB'
-import postsJson from "posts.json";
+import postsJson from "services/StorageService/posts.json";
 import { observable } from "mobx"
 import { isNull } from "util"
 import { isIsoDateString } from 'utils/helpers'

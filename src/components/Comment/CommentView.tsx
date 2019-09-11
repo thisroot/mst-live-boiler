@@ -3,7 +3,7 @@ import { inject } from "react-ioc"
 import { action, observable } from "mobx";
 import { observer } from "mobx-react";
 import ReactMarkdown from "react-markdown";
-import { CommentService } from "services";
+import { CommentService } from "./CommentService";
 import { Comment } from "models";
 import { CommentEditor } from "components/Comment/CommentEditor";
 

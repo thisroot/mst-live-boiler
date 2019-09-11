@@ -3,13 +3,13 @@ import { Helmet } from 'react-helmet'
 import { inject, provider, toFactory } from "react-ioc"
 import {
     AuthService,
-    CommentService,
     DataContext,
-    PostService,
     RouterService,
     StorageService,
     ApiService
 } from "services"
+
+import { CommentService, PostService } from 'components'
 
 import { APP_STATE, AppService } from './AppService'
 
