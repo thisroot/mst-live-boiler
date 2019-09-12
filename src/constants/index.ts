@@ -1,3 +1,3 @@
 export * from './routes'
 export * from './appConfig'
-export * from './constants'
+export * from './common'

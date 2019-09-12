@@ -6,7 +6,8 @@ import {
     DataContext,
     RouterService,
     StorageService,
-    ApiService
+    ApiService,
+    PWAService
 } from "services"
 
 import { APP_STATE, AppService } from './AppService'
@@ -85,7 +86,8 @@ const App = provider()(AppContainer)
 App.register(
     AuthService,
     StorageService, RouterService,
-    AppService, ApiService, [ DataContext, toFactory(DataContext.create) ]
+    AppService, ApiService, PWAService,
+    [ DataContext, toFactory(DataContext.create) ]
 )
 
 export { App }

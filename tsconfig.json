@@ -5,7 +5,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "webworker"
     ],
     "strictNullChecks": false, // проверка на нулевые значения для свойств
     "noImplicitAny": false, // проверка на указание типа аргументов
