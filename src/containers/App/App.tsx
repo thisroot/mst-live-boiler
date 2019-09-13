@@ -7,7 +7,8 @@ import {
     RouterService,
     StorageService,
     ApiService,
-    PWAService
+    PWAService,
+    EventService
 } from "services"
 
 import { APP_STATE, AppService } from './AppService'
@@ -22,6 +23,9 @@ import { Link } from 'react-router-dom'
 class AppContainer extends React.Component {
 
     @inject
+    pwaService: PWAService
+
+    @inject
     router: RouterService
 
     @inject
@@ -31,9 +35,13 @@ class AppContainer extends React.Component {
         await this.appService.init()
     }
 
+    componentWillReceiveProps(): void {
+        console.log(this.pwaService.workerState )
+    }
+
     appRender = (children?: JSX.Element) => {
         return (<Fragment>
-            <header>Header</header>
+            <header>PWA service state: { this.pwaService.workerState }</header>
             <main style={ { display: "flex", flexDirection: "column" } }>
                 <aside style={ { display: "flex" } }>
                     <Link className={ styles.link } to={ROUTES.ROOT.PATH}> native link </Link>
@@ -86,7 +94,7 @@ const App = provider()(AppContainer)
 App.register(
     AuthService,
     StorageService, RouterService,
-    AppService, ApiService, PWAService,
+    AppService, ApiService, PWAService, EventService,
     [ DataContext, toFactory(DataContext.create) ]
 )
 

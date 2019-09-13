@@ -29,10 +29,8 @@ class AppService {
 
     @action
     init = async () => {
-        this.storageService.init()
         this.pwaService.init()
-        // get route path
-        // get user auth state
+        await this.storageService.init()
         this.state = APP_STATE.app
     }
 }

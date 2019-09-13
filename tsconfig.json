@@ -31,7 +31,7 @@
     "moduleResolution": "node",
     "rootDir": "src",
     "resolveJsonModule": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "preserve",
     "typeRoots": [
       "./src/types",

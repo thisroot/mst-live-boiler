@@ -3,10 +3,11 @@ import { isLocalhost } from 'utils'
 import { get } from 'lodash'
 import { SERVICE_WORKER_STATE, PWAMessages } from 'constants/common'
 import { logger as console } from 'utils/logger'
+import { action, observable } from "mobx"
 
 interface PWAConfig {
-    onSuccess?: (pwa: PWAService) => void,
-    onUpdate?: (registration: ServiceWorkerRegistration) => void
+    onSuccess?: (worker: ServiceWorker, event: Event) => void,
+    onUpdate?: (worker: ServiceWorker, event: Event) => void
 }
 
 interface PWAMessage {
@@ -15,15 +16,16 @@ interface PWAMessage {
 }
 
 class PWAService extends SingletonClass {
+
+    @observable
+    public workerState: string = 'disabled'
+
     private worker: ServiceWorker | null
     private navigator: Navigator | null
 
+    @action
     public init() {
         this.register()
-        // console.log('CREATE-PWA')
-        // const pwa = new PWAService()
-        // pwa.register()
-        // return pwa
     }
 
     constructor() {
@@ -32,10 +34,7 @@ class PWAService extends SingletonClass {
         this.navigator = null
     }
 
-    public  get workerState(): string {
-        return get(this, 'worker.state', SERVICE_WORKER_STATE.DISABLED)
-    }
-
+    @action
     public messageUpdateCache = () => {
         this.sendMessage({
             type: PWAMessages.SET_ADDITIONAL_API_CACHED_RESOURCES,
@@ -48,15 +47,17 @@ class PWAService extends SingletonClass {
         })
     }
 
+    @action
     public sendMessage = (message: PWAMessage): boolean => {
         if (get(this.navigator, 'WorkerService.controller') && get(this, 'worker.state') === SERVICE_WORKER_STATE.ACTIVATED) {
-            console.message('client => pwa', message.type)
+            console.log('message', message.type)
             return get(this.navigator, 'WorkerService.controller').postMessage(message) && true
         } else {
             return false
         }
     }
 
+    @action
     public register = (config?: PWAConfig) => {
         if ('serviceWorker' in navigator) {
             // observer.subscribe(ObservableTypes.cacheChanged,  () => {
@@ -77,32 +78,25 @@ class PWAService extends SingletonClass {
             }
 
             window.addEventListener('load', () => {
-                // const swUrl = `${process.env.PUBLIC_URL}/${process.env.SERVICE_WORKER}`
-                // const swUrl =  `${process.env.PUBLIC_URL}/swd.js`
-                // console.log(process.env.BASEURL)
-                const swUrl = '/static/js/worker.chunk.js'
-
+                const swUrl =  `${process.env.PUBLIC_URL}/worker.js`
                 if (isLocalhost) {
                     // This is running on localhost. Let's check if a service worker still exists or not.
-                    this.checkValidServiceWorker(swUrl, config);
+                    this.checkValidServiceWorker(swUrl);
                     // Add some additional logging to localhost, pointing developers to the
                     // service worker/PWA documentation.
                     navigator.serviceWorker.ready.then((registration) => {
                         this.worker = registration.active
-                        // observer.fire(ObservableTypes.workerChangeState, get(this, 'worker.state', SERVICE_WORKER_STATE.ACTIVATED))
-                        // console.event('PWA', ` ${get(registration, 'active.state')}`)
-                        if (config && config.onSuccess) {
-                            config.onSuccess(this);
-                        }
+                        this.workerState = this.worker.state
+                        this.worker.onstatechange = this.onWorkerStateChange(config)
                     });
                 } else {
                     // Is not localhost. Just register service worker
-                    this.registerValidSW(swUrl, config);
+                    this.registerValidSW(swUrl);
                 }
             });
         }
     }
-
+    @action
     public unregister = () => {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.ready.then(registration => {
@@ -116,7 +110,8 @@ class PWAService extends SingletonClass {
         }
     }
 
-    private registerValidSW = (swUrl: string, config?: PWAConfig) => {
+    @action
+    private registerValidSW = (swUrl: string) => {
                 navigator.serviceWorker
                     .register(swUrl)
                     .then(registration => {
@@ -125,39 +120,9 @@ class PWAService extends SingletonClass {
                             if (installingWorker == null) {
                                 return;
                             }
-
                             this.worker = installingWorker
-
-                            installingWorker.onstatechange = () => {
-                                // observer.fire(ObservableTypes.workerChangeState, installingWorker.state)
-                                console.event('PWA', ` ${installingWorker.state}`)
-                                switch (installingWorker.state) {
-                                    case 'installed':
-                                        if (navigator.serviceWorker.controller) {
-                                            // At this point, the updated precached content has been fetched,
-                                            // but the previous service worker will still serve the older
-                                            // content until all client tabs are closed.
-                                            // Execute callback
-                                            if (config && config.onUpdate) {
-                                                config.onUpdate(registration);
-                                            }
-                                        } else {
-                                            // At this point, everything has been precached.
-                                            // It's the perfect time to display a
-                                            // "Content is cached for offline use." message.
-                                            console.log('Content is cached for offline use.');
-                                            // Execute callback
-                                        }
-                                        break
-                                    case 'activated':
-                                        if (config && config.onSuccess) {
-                                            config.onSuccess(this);
-                                        }
-                                        break
-                                    default:
-                                        break
-                                }
-                            };
+                            this.workerState = this.worker.state
+                            this.worker.onstatechange = this.onWorkerStateChange()
                         };
                     })
                     .catch(error => {
@@ -165,7 +130,8 @@ class PWAService extends SingletonClass {
                     });
     }
 
-    private checkValidServiceWorker(swUrl: string, config?: PWAConfig) {
+    @action
+    private checkValidServiceWorker(swUrl: string) {
         // Check if the service worker can be found. If it can't reload the page.
         fetch(swUrl)
             .then((response: any) => {
@@ -183,9 +149,8 @@ class PWAService extends SingletonClass {
                         });
                     });
                 } else {
-
                     // Service worker found. Proceed as normal.
-                    this.registerValidSW(swUrl, config);
+                    this.registerValidSW(swUrl);
                 }
             })
             .catch(() => {
@@ -193,6 +158,33 @@ class PWAService extends SingletonClass {
                     'No internet connection found. App is running in offline mode.'
                 );
             });
+    }
+
+    @action
+    private onWorkerStateChange = (config?: PWAConfig) => {
+        return (event: Event): void => {
+            // observer.fire(ObservableTypes.workerChangeState, installingWorker.state)
+            switch (this.worker.state) {
+                case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                        // At this point, the updated precached content has been fetched,
+                        // but the previous service worker will still serve the older
+                        // content until all client tabs are closed.
+                        // Execute callback
+                        if (config && config.onUpdate) {
+                            config.onUpdate(this.worker, event);
+                        }
+                    }
+                    break
+                case 'activated':
+                    if (config && config.onSuccess) {
+                        config.onSuccess(this.worker, event);
+                    }
+                    break
+                default:
+                    break
+            }
+        }
     }
 }
 

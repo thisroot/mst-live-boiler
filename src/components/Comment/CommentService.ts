@@ -3,7 +3,7 @@ import { inject } from "react-ioc"
 import { Comment } from 'models/mst/Comment'
 import { Post } from "models/mst/Post"
 import { DataContext } from "services/DataContext";
-import { AuthService } from "services/AuthService";
+import { AuthService } from "services/AuthService/AuthService";
 
 export class CommentService {
   @inject
