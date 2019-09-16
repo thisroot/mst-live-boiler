@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom';
 import { RouterContainer } from 'containers/Router';
 
@@ -8,23 +8,23 @@ import { RouterContainer } from 'containers/Router';
 //         .then(({ RouterContainer }) => ({ default: RouterContainer })),
 // );
 
-// const preloader = () => {
-//     return (<div className="banter-loader">
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//         <div className="banter-loader__box" />
-//     </div>)
-// }
+const preloader = () => {
+    return (<div className="banter-loader">
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+        <div className="banter-loader__box" />
+    </div>)
+}
 
 const container = document.getElementById("root")
-// ReactDOM.render(<Suspense fallback={ preloader } ><RouterContainer /></Suspense>, container)
-ReactDOM.render(<RouterContainer />, container)
+ReactDOM.render(<Suspense fallback={ preloader } ><RouterContainer /></Suspense>, container)
+// ReactDOM.render(<RouterContainer />, container)
 
 // позволяет выполнить функцию жизненного цикла componentWillUnmount при закрытии приложения.
 // в нашем случае она скидывает дамп редак стора в локальное хранилище

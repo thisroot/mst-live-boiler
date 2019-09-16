@@ -27,6 +27,7 @@ const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpack
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const eslint = require('eslint');
 const CompressionPlugin = require("compression-webpack-plugin");
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -525,6 +526,7 @@ module.exports = function(webpackEnv) {
                   : undefined
           )
       ),
+      isEnvProduction && new PreloadWebpackPlugin(),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
