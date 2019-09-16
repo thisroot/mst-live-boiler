@@ -1,7 +1,7 @@
-import { constants } from 'constants/constants'
+import { REGEXP } from 'constants/common'
 
 function isIsoDateString(arg): arg is string {
-    return typeof arg === "string" && constants.REGEXP.date.test(arg);
+    return typeof arg === "string" && REGEXP.date.test(arg);
 }
 
 export {

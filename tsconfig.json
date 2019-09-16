@@ -5,7 +5,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "webworker"
     ],
     "strictNullChecks": false, // проверка на нулевые значения для свойств
     "noImplicitAny": false, // проверка на указание типа аргументов
@@ -30,7 +31,7 @@
     "moduleResolution": "node",
     "rootDir": "src",
     "resolveJsonModule": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "preserve",
     "typeRoots": [
       "./src/types",

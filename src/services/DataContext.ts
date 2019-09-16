@@ -9,7 +9,6 @@ export const history = syncHistoryWithStore(createBrowserHistory(), routerModel)
 
 export class DataContext {
   static create() {
-    console.log('create')
     const models = Store.create({ router: routerModel });
     connectReduxDevtools(require("remotedev"), models, { logArgsNearName: false})
     unprotect(models);

@@ -1,6 +1,6 @@
 import { inject } from "react-ioc"
 import { action, observable } from "mobx";
-import { Post } from "./Post";
+import { Post } from "models/mst/Post";
 import { DataContext, AuthService } from "services";
 
 class CreatePostModel {
