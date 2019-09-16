@@ -1,9 +1,11 @@
 import { SingletonClass } from 'models'
 import { isLocalhost } from 'utils'
+import { inject } from "react-ioc"
 import { get } from 'lodash'
-import { SERVICE_WORKER_STATE, PWAMessages } from 'constants/common'
+import { PWAMessages, SERVICE_WORKER_STATE } from 'constants/common'
 import { logger as console } from 'utils/logger'
 import { action, observable } from "mobx"
+import { EventService, EventTypes } from 'services/EventsService'
 
 interface PWAConfig {
     onSuccess?: (worker: ServiceWorker, event: Event) => void,
@@ -16,6 +18,8 @@ interface PWAMessage {
 }
 
 class PWAService extends SingletonClass {
+
+    @inject eventService: EventService
 
     @observable
     public workerState: string = 'disabled'
@@ -87,6 +91,8 @@ class PWAService extends SingletonClass {
                     navigator.serviceWorker.ready.then((registration) => {
                         this.worker = registration.active
                         this.workerState = this.worker.state
+                        // по сути штука не нужная в рамках сервисов, так как они и так связаны друг с другом и могут отслеживать изменение состояний
+                        this.eventService.fire(EventTypes.cacheChanged)
                         this.worker.onstatechange = this.onWorkerStateChange(config)
                     });
                 } else {
@@ -122,6 +128,7 @@ class PWAService extends SingletonClass {
                             }
                             this.worker = installingWorker
                             this.workerState = this.worker.state
+                            this.eventService.fire(EventTypes.cacheChanged)
                             this.worker.onstatechange = this.onWorkerStateChange()
                         };
                     })
