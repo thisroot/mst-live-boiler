@@ -4,4 +4,3 @@ export { StorageService } from "./StorageService";
 export { RouterService } from 'services/RouterService/RouterService'
 export { ApiService } from './ApiService'
 export { PWAService, PWAMessages } from './PWAService'
-export { EventService, ActionTypes, EventTypes } from './EventsService'

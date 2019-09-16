@@ -1,5 +1,5 @@
 import { inject } from "react-ioc"
-import { AuthService, DataContext, EventService, EventTypes, PWAService, RouterService, StorageService } from "services"
+import { AuthService, DataContext, PWAService, RouterService, StorageService } from "services"
 import { action, intercept, observable, observe } from "mobx"
 
 enum APP_STATE {
@@ -14,9 +14,6 @@ class AppService {
 
     @observable
     state: APP_STATE = APP_STATE.pending
-
-    @inject
-    protected evetService: EventService
 
     @inject
     protected pwaService: PWAService
@@ -47,17 +44,11 @@ class AppService {
         await this.storageService.init()
         this.state = APP_STATE.app
         // по сути этот сервис не нужен
-        this.evetService.subscribe(EventTypes.cacheChanged, () => {
-            console.log('тестируем ')
-        }, this)
     }
 
     dispose = () => {
         this.disposer()
         this.disposer2()
-        this.evetService.unsubscribe(EventTypes.cacheChanged, () => {
-            console.log('тестируем ')
-        }, this)
     }
 }
 
